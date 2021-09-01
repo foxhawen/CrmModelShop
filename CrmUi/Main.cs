@@ -1,7 +1,7 @@
-﻿using System;
+﻿using CrmBl.Model;
+using System;
 using System.Windows.Forms;
-using CrlBl.Model;
-using CrmBl.Model;
+
 
 namespace CrmUi
 {

@@ -8,8 +8,8 @@
     <ProjectGuid>{71DAA130-4644-439E-B9FA-F08BB0DFCA9F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CrlBl</RootNamespace>
-    <AssemblyName>CrlBl</AssemblyName>
+    <RootNamespace>CrmBl</RootNamespace>
+    <AssemblyName>CrmBl</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Cart.cs" />
     <Compile Include="Model\Check.cs" />
     <Compile Include="Model\CrmContext.cs" />
     <Compile Include="Model\Customer.cs" />

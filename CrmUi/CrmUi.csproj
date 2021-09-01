@@ -127,9 +127,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CrlBl\CrlBl.csproj">
+    <ProjectReference Include="..\CrlBl\CrmBl.csproj">
       <Project>{71daa130-4644-439e-b9fa-f08bb0dfca9f}</Project>
-      <Name>CrlBl</Name>
+      <Name>CrmBl</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

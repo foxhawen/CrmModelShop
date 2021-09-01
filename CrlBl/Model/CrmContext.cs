@@ -1,9 +1,7 @@
-﻿
+﻿using System.Data.Entity;
 
-using System.Data.Entity;
-using CrmBl.Model;
 
-namespace CrlBl.Model
+namespace CrmBl.Model
 {
     public class CrmContext :DbContext
     {
