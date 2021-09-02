@@ -38,9 +38,6 @@ namespace CrmBl.Model.Tests
             {
                 product1, product1, product2
             };
-
-
-
             //act
             cart.Add(product1);
             cart.Add(product1);

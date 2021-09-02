@@ -45,7 +45,7 @@ namespace CrlBl.Model
             var result = new List<Product>();
             foreach (Product i in this)
             {
-                result.Add(i );
+                result.Add(i);
             }
 
             return result;
