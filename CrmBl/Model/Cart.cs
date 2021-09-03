@@ -1,13 +1,12 @@
 ﻿using System.Collections;
-using CrmBl.Model;
 using System.Collections.Generic;
 
 
-namespace CrlBl.Model
+namespace CrmBl.Model
 {
     public class Cart : IEnumerable
 
-    {
+    { 
         public Customer Customer { get; set; }
         public Dictionary<Product, int> Products { get; set; }
 

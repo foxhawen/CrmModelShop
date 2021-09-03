@@ -1,9 +1,10 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CrlBl.Model;
+
 
 
 namespace CrmBl.Model
@@ -12,11 +13,12 @@ namespace CrmBl.Model
     {
         CrmContext db = new CrmContext();
         public int Number { get; set; }
-        public Seller Seller { get; set; } 
+        public Seller Seller { get; set; }
         public Queue<Cart> Queue { get; set; }
         public int MaxQueueLenght { get; set; }
         public int ExitCustomer { get; set; }
         public bool IsModel { get; set; }
+        public int Count => Queue.Count;
 
         public CashDesk(int number, Seller seller)
         {
@@ -41,15 +43,16 @@ namespace CrmBl.Model
         public decimal Dequeue()
         {
             decimal sum = 0;
-            var cart = Queue.Dequeue();
-            if (cart != null)
+            var card = Queue.Dequeue();
+
+            if (card != null)
             {
                 var check = new Check()
                 {
                     SellerId = Seller.SellerId,
                     Seller = Seller,
-                    CustomerId = cart.Customer.CustomerId,
-                    Customer = cart.Customer,
+                    CustomerId = card.Customer.CustomerId,
+                    Customer = card.Customer,
                     Created = DateTime.Now
 
                 };
@@ -65,7 +68,7 @@ namespace CrmBl.Model
 
                 var sells = new List<Sell>();
 
-                foreach (Product product in cart)
+                foreach (Product product in card)
                 {
                     if (product.Count > 0)
                     {

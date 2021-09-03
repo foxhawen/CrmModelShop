@@ -77,14 +77,15 @@
   <ItemGroup>
     <Compile Include="Model\CartTests.cs" />
     <Compile Include="Model\CashDeskTests.cs" />
+    <Compile Include="Model\ShopComputerModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CrlBl\CrmBl.csproj">
-      <Project>{71DAA130-4644-439E-B9FA-F08BB0DFCA9F}</Project>
+    <ProjectReference Include="..\CrmBl\CrmBl.csproj">
+      <Project>{71daa130-4644-439e-b9fa-f08bb0dfca9f}</Project>
       <Name>CrmBl</Name>
     </ProjectReference>
     <ProjectReference Include="..\CrmUi\CrmUi.csproj">

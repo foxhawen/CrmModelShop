@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using CrlBl.Model;
+
 
 
 namespace CrmBl.Model.Tests

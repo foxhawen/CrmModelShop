@@ -127,7 +127,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CrlBl\CrmBl.csproj">
+    <ProjectReference Include="..\CrmBl\CrmBl.csproj">
       <Project>{71daa130-4644-439e-b9fa-f08bb0dfca9f}</Project>
       <Name>CrmBl</Name>
     </ProjectReference>
