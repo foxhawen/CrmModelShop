@@ -1,9 +1,6 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 
@@ -20,12 +17,15 @@ namespace CrmBl.Model
         public bool IsModel { get; set; }
         public int Count => Queue.Count;
 
+        public event EventHandler<Check> CheckClosed;
+
         public CashDesk(int number, Seller seller)
         {
             Number = number;
             Seller = seller;
             Queue = new Queue<Cart>();
             IsModel = true;
+            MaxQueueLenght = 10;
         }
 
         public void Enqueue(Cart cart)
@@ -43,6 +43,11 @@ namespace CrmBl.Model
         public decimal Dequeue()
         {
             decimal sum = 0;
+            if (Queue.Count == 0)
+            {
+                return 0;
+            }
+
             var card = Queue.Dequeue();
 
             if (card != null)
@@ -91,13 +96,22 @@ namespace CrmBl.Model
                     }
                 }
 
+                check.Price = sum;
+
                 if (!IsModel)
                 {
                     db.SaveChanges();
                 }
+
+                CheckClosed?.Invoke(this, check);
             }
 
             return sum;
+        }
+
+        public override string ToString()
+        {
+            return $"Касса № {Number} ";
         }
     }
 }
