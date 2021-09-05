@@ -1,5 +1,7 @@
 ﻿using CrmBl.Model;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -8,10 +10,20 @@ namespace CrmUi
     public partial class Main : Form
     {
         CrmContext db;
+        Cart cart;
+        Customer customer;
+        CashDesk cashDesk;
+
         public Main()
         {
             InitializeComponent();
             db = new CrmContext();
+
+            cart = new Cart(customer);
+            cashDesk = new CashDesk(1, db.Sellers.FirstOrDefault(), db)
+            {
+                IsModel = false
+            };
         }
 
         private void ProductToolStripMenuItem_Click(object sender, EventArgs e)
@@ -70,15 +82,79 @@ namespace CrmUi
             }
         }
 
-        private void Main_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void modelаниеToolStripMenuItem_Click(object sender, EventArgs e)
+        private void modelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = new ModelForm();
             form.Show();
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+            Task.Run(() =>
+            {
+                listBox1.Invoke((Action)delegate
+                {
+                    listBox1.Items.AddRange(db.Products.ToArray());
+                    UpdateLists();
+                });
+            });
+        }
+
+        private void listBox1_DoubleClick(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem is Product product)
+            {
+                cart.Add(product);
+                listBox2.Items.Add(product);
+                UpdateLists();
+            }
+        }
+
+        private void UpdateLists()
+        {
+            listBox2.Items.Clear();
+            listBox2.Items.AddRange(cart.GetAll().ToArray());
+            label1.Text = "Итого: " + cart.Price;
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var form = new Login();
+            form.ShowDialog();
+            if (form.DialogResult == DialogResult.OK)
+            {
+                var tempCustomers = db.Customers.FirstOrDefault(c => c.Name.Equals(form.Customer.Name));
+                if (tempCustomers != null)
+                {
+                    customer = tempCustomers;
+                }
+                else
+                {
+                    db.Customers.Add(form.Customer);
+                    db.SaveChanges();
+                    customer = form.Customer;
+                }
+                cart.Customer = customer;
+            }
+
+            linkLabel1.Text = $"Здравстуй, {customer.Name}";
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (customer != null)
+            {
+                cashDesk.Enqueue(cart);
+                var prise = cashDesk.Dequeue();
+                listBox2.Items.Clear();
+                cart = new Cart(customer);
+
+                MessageBox.Show("Покупка выполнена успешно. Смма: " + prise, "Пкупка выполнена", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Авторизуйтесь, пожалуста!", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }
